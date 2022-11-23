@@ -110,8 +110,54 @@ public class BookRepositoryTest {
     }
 
 
+    // 1, junit, hwang
     //5. 책 수정
+    @Sql("classpath:db/tableInit.sql") // 시퀀스 번호를 가지고 있는 경우 초기화는 무조건!!
+    @Test
+    public void 책수정_test(){
 
+        //given
+        Long id = 1L;
+        String title = "junit5";
+        String author = "joony";
+
+        Book book = new Book(id, title, author);
+
+        //when
+
+//        bookRepository.findAll().stream().forEach((b) -> {
+//            // 1, junit, hwang 출력 BeforeEach로 삽입된 값
+//            // 하지만 @Sql로 테이블을 삭제했는데 값이 남아있음 why?
+
+    //        @BeforeEach(트랜잭션 시작) -> @Sql 테이블 드랍 -> update (트랜잭션 종료)
+    //        트랜잭션이 실행되기 전까지는 데이터가 메모리에 적재된다. 하지만 @Sql 어노테이션으로 테이블을 드랍하는 것은 HDD에 있는 데이터를 날리는 것이기 때문에
+    //        메모리에 있는 데이터들은 그대로 보존된다.
+    //
+    //        Commit : 메모리 데이터 -> HDD 데이터
+    //        RollBack : 메모리 데이터 삭제
+
+//            System.out.println(b.getId());
+//            System.out.println(b.getTitle());
+//            System.out.println(b.getAuthor());
+//            System.out.println("=======================");
+//        });
+
+        Book bookPS = bookRepository.save( book );
+
+//        bookRepository.findAll().stream().forEach((b) -> {
+//            System.out.println(b.getId());
+//            System.out.println(b.getTitle());
+//            System.out.println(b.getAuthor());
+//            System.out.println("=======================");
+//        });
+
+
+        //then
+        Assertions.assertEquals( id, bookPS.getId() );
+        Assertions.assertEquals( title, bookPS.getTitle() );
+        Assertions.assertEquals( author, bookPS.getAuthor() );
+
+    }
 
 
 
