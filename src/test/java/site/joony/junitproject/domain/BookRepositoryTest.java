@@ -112,15 +112,16 @@ public class BookRepositoryTest {
 
     // 1, junit, hwang
     //5. 책 수정
-    @Sql("classpath:db/tableInit.sql") // 시퀀스 번호를 가지고 있는 경우 초기화는 무조건!!
+    // 시퀀스 번호를 가지고 있는 경우 초기화는 무조건!!
+    @Sql("classpath:db/tableInit.sql")
     @Test
     public void 책수정_test(){
+
 
         //given
         Long id = 1L;
         String title = "junit5";
-        String author = "joony";
-
+        String author = "joony_unit";
         Book book = new Book(id, title, author);
 
         //when
