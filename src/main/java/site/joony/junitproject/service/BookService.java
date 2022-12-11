@@ -21,7 +21,8 @@ public class BookService {
 
     private final MailSender mailSender;
 
-//    //1. 책등록
+
+    //    //1. 책등록
 //    @Transactional( rollbackFor = RuntimeException.class ) // 런타임예외가 떨어지면 롤백을 하겠다
 //    public BookRespDto 책등록하기(BookSaveReqDto dto){
 //        Book bookPS = bookRepository.save(dto.toEntity());
