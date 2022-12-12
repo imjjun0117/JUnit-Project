@@ -44,7 +44,18 @@ public class BookService {
 
     //2. 책 목록 보기
     public List<BookRespDto> 책목록보기(){
-        return bookRepository.findAll().stream().map(BookRespDto::toDto).collect(Collectors.toList()); // 복제된 bookPS들을 Stream에 담아 List로 변환하여 반환
+        List<BookRespDto> dtos = bookRepository.findAll().stream()
+                .map((bookPS) -> BookRespDto.toDto(bookPS)).collect(Collectors.toList());
+        //print
+        dtos.stream().forEach((dto)->{
+            System.out.println("============ 본코드");
+            System.out.println(dto.getId());
+            System.out.println(dto.getTitle());
+
+        });
+
+        return dtos;
+        //        return bookRepository.findAll().stream().map(BookRespDto::toDto).collect(Collectors.toList()); // 복제된 bookPS들을 Stream에 담아 List로 변환하여 반환
 
         //toDto가 static 메소드가 아닌 경우
 //        return bookRepository.findAll().stream().map(new BookRespDto()::toDto).collect(Collectors.toList()); // 복제된 bookPS들을 Stream에 담아 List로 변환하여 반환

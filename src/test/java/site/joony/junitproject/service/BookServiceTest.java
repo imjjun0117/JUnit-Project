@@ -10,11 +10,17 @@ import org.mockito.internal.matchers.Any;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import site.joony.junitproject.domain.Book;
 import site.joony.junitproject.domain.BookRepository;
 import site.joony.junitproject.util.MailSender;
 import site.joony.junitproject.util.MailSenderStub;
 import site.joony.junitproject.web.dto.BookRespDto;
 import site.joony.junitproject.web.dto.BookSaveReqDto;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -54,8 +60,6 @@ public class BookServiceTest {
         when(bookRepository.save(any())).thenReturn(dto.toEntity());
         when(mailSender.send()).thenReturn(true);
 
-
-
         //when
 //        BookService bookService = new BookService(bookRepository, mailSenderStub);
         //stub 정의를 하지 않은 객체를 바로 넣을 경우 NullPointerException 발생
@@ -64,9 +68,38 @@ public class BookServiceTest {
         //then
         //Assertions.assertEquals(dto.getTitle(), bookRespDto.getTitle());
         //Assertions.assertEquals(dto.getAuthor(), bookRespDto.getAuthor());
-        assertThat(dto.getTitle()).isEqualTo(bookRespDto.getTitle());
-        assertThat(dto.getAuthor()).isEqualTo(bookRespDto.getAuthor());
+        assertThat(bookRespDto.getTitle()).isEqualTo(dto.getTitle());
+        assertThat(bookRespDto.getAuthor()).isEqualTo(dto.getAuthor());
 
+    }
+
+    @Test
+    public void 책목록보기_테스트(){
+        //given
+
+        //stub(가설)
+        List<Book> books = new ArrayList<>();
+        books.add(new Book(1L, "junit 강의", "메타코딩"));
+        books.add(new Book(2L, "spring 강의", "겟인데어"));
+
+        when(bookRepository.findAll()).thenReturn(books);
+
+        //when(실행)
+        List<BookRespDto> bookRespDtoList =  bookService.책목록보기();
+
+        //print
+        bookRespDtoList.stream().forEach((dto)->{
+            System.out.println("============ 테스트");
+            System.out.println(dto.getId());
+            System.out.println(dto.getTitle());
+
+        });
+
+        //then(검증)
+        assertThat(bookRespDtoList.get(0).getTitle()).isEqualTo("junit 강의");
+        assertThat(bookRespDtoList.get(0).getAuthor()).isEqualTo("메타코딩");
+        assertThat(bookRespDtoList.get(1).getTitle()).isEqualTo("spring 강의");
+        assertThat(bookRespDtoList.get(1).getAuthor()).isEqualTo("겟인데어");
     }
 
 }
