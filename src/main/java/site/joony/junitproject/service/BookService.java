@@ -38,14 +38,19 @@ public class BookService {
                 throw new RuntimeException("메일이 전송되지 않습니다.");
             }
         }
-        return BookRespDto.toDto(bookPS);
+//        return BookRespDto.toDto(bookPS);
+        return bookPS.toDto();
     }
+
 
 
     //2. 책 목록 보기
     public List<BookRespDto> 책목록보기(){
         List<BookRespDto> dtos = bookRepository.findAll().stream()
-                .map((bookPS) -> BookRespDto.toDto(bookPS)).collect(Collectors.toList());
+//                .map((bookPS) -> BookRespDto.toDto(bookPS))
+                .map(Book::toDto)
+//                .map(new BookRespDto() :: toDto) // 같은 인스턴스를 한번 불러오기 때문에 같은 값이 반환됨
+                .collect(Collectors.toList());
         //print
         dtos.stream().forEach((dto)->{
             System.out.println("============ 본코드");
@@ -66,7 +71,8 @@ public class BookService {
     public BookRespDto 책한건보기(Long id){
         Optional<Book> bookOP = bookRepository.findById(id);
         if(bookOP.isPresent()){
-            return BookRespDto.toDto(bookOP.get());
+//            return BookRespDto.toDto(bookOP.get());
+            return bookOP.get().toDto();
         }else{
             throw new RuntimeException("해당 아이디를 찾을 수 없습니다.");
         }
@@ -81,16 +87,18 @@ public class BookService {
 
     //5. 책 수정
     @Transactional(rollbackFor = RuntimeException.class)
-    public void 책수정하기(Long id, BookSaveReqDto dto){
+    public BookRespDto 책수정하기(Long id, BookSaveReqDto dto){
         Optional<Book> bookOP = bookRepository.findById(id);
 
         if(bookOP.isPresent()){
             //영속성 컨텍스트 변경을 감지하여 자동으로 update 수행
             Book bookPS = bookOP.get();
-            bookPS.update(dto.getTitle(), dto.getAuthor());
+            bookPS.update(dto.getTitle(), dto.getAuthor()); // update 테스트를 못함
+            return bookPS.toDto();
         }else{
             throw new RuntimeException("해당 아이디를 찾을 수 없습니다.");
         }//end else
+
     }// 메서드 종료 시에 더티체킹(flush)로 update 됩니다.
 
 

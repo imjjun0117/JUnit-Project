@@ -3,6 +3,7 @@ package site.joony.junitproject.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import site.joony.junitproject.web.dto.BookRespDto;
 
 import javax.persistence.*;
 
@@ -31,4 +32,13 @@ public class Book {
         this.title = title;
         this.author = author;
     }
+
+    public BookRespDto toDto(){
+        return BookRespDto.builder()
+                .id(id)
+                .title(title)
+                .author(author)
+                .build();
+    }
+
 }
