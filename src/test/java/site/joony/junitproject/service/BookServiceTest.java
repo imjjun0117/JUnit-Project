@@ -1,24 +1,17 @@
 package site.joony.junitproject.service;
 
-import org.hibernate.query.criteria.internal.expression.SimpleCaseExpression;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.matchers.Any;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import site.joony.junitproject.domain.Book;
 import site.joony.junitproject.domain.BookRepository;
 import site.joony.junitproject.util.MailSender;
-import site.joony.junitproject.util.MailSenderStub;
-import site.joony.junitproject.web.dto.BookRespDto;
-import site.joony.junitproject.web.dto.BookSaveReqDto;
+import site.joony.junitproject.web.dto.request.BookRespDto;
+import site.joony.junitproject.web.dto.response.BookSaveReqDto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

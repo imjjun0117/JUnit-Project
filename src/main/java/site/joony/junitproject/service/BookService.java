@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import site.joony.junitproject.domain.Book;
 import site.joony.junitproject.domain.BookRepository;
 import site.joony.junitproject.util.MailSender;
-import site.joony.junitproject.web.dto.BookRespDto;
-import site.joony.junitproject.web.dto.BookSaveReqDto;
+import site.joony.junitproject.web.dto.request.BookRespDto;
+import site.joony.junitproject.web.dto.response.BookSaveReqDto;
 
 import java.util.List;
 import java.util.Optional;

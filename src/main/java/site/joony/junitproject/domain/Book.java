@@ -3,7 +3,7 @@ package site.joony.junitproject.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import site.joony.junitproject.web.dto.BookRespDto;
+import site.joony.junitproject.web.dto.request.BookRespDto;
 
 import javax.persistence.*;
 

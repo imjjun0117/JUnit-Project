@@ -1,4 +1,4 @@
-package site.joony.junitproject.web.dto;
+package site.joony.junitproject.web.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
