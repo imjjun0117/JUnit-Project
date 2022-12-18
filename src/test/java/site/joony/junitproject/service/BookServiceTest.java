@@ -8,8 +8,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import site.joony.junitproject.domain.Book;
 import site.joony.junitproject.domain.BookRepository;
 import site.joony.junitproject.util.MailSender;
-import site.joony.junitproject.web.dto.request.BookRespDto;
-import site.joony.junitproject.web.dto.response.BookSaveReqDto;
+import site.joony.junitproject.web.dto.response.BookListRespDto;
+import site.joony.junitproject.web.dto.response.BookRespDto;
+import site.joony.junitproject.web.dto.request.BookSaveReqDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,7 @@ public class BookServiceTest {
 
     }
 
+    //체크 포인트
     @Test
     public void 책목록보기_테스트(){
         //given
@@ -79,21 +81,21 @@ public class BookServiceTest {
         when(bookRepository.findAll()).thenReturn(books);
 
         //when(실행)
-        List<BookRespDto> bookRespDtoList =  bookService.책목록보기();
+        BookListRespDto bookRespDtoList =  bookService.책목록보기();
 
         //print
-        bookRespDtoList.stream().forEach((dto)->{
-            System.out.println("============ 테스트");
-            System.out.println(dto.getId());
-            System.out.println(dto.getTitle());
-
-        });
+//        bookRespDtoList.stream().forEach((dto)->{
+//            System.out.println("============ 테스트");
+//            System.out.println(dto.getId());
+//            System.out.println(dto.getTitle());
+//
+//        });
 
         //then(검증)
-        assertThat(bookRespDtoList.get(0).getTitle()).isEqualTo("junit 강의");
-        assertThat(bookRespDtoList.get(0).getAuthor()).isEqualTo("메타코딩");
-        assertThat(bookRespDtoList.get(1).getTitle()).isEqualTo("spring 강의");
-        assertThat(bookRespDtoList.get(1).getAuthor()).isEqualTo("겟인데어");
+        assertThat(bookRespDtoList.getItems().get(0).getTitle()).isEqualTo("junit 강의");
+        assertThat(bookRespDtoList.getItems().get(0).getAuthor()).isEqualTo("메타코딩");
+        assertThat(bookRespDtoList.getItems().get(1).getTitle()).isEqualTo("spring 강의");
+        assertThat(bookRespDtoList.getItems().get(1).getAuthor()).isEqualTo("겟인데어");
     }
 
     @Test

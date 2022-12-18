@@ -6,8 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import site.joony.junitproject.domain.Book;
 import site.joony.junitproject.domain.BookRepository;
 import site.joony.junitproject.util.MailSender;
-import site.joony.junitproject.web.dto.request.BookRespDto;
-import site.joony.junitproject.web.dto.response.BookSaveReqDto;
+import site.joony.junitproject.web.dto.response.BookListRespDto;
+import site.joony.junitproject.web.dto.response.BookRespDto;
+import site.joony.junitproject.web.dto.request.BookSaveReqDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +46,7 @@ public class BookService {
 
 
     //2. 책 목록 보기
-    public List<BookRespDto> 책목록보기(){
+    public BookListRespDto 책목록보기(){
         List<BookRespDto> dtos = bookRepository.findAll().stream()
 //                .map((bookPS) -> BookRespDto.toDto(bookPS))
                 .map(Book::toDto)
@@ -59,7 +60,10 @@ public class BookService {
 
         });
 
-        return dtos;
+        // 오브젝트 반환 통합 List -> Object
+        BookListRespDto bookListRespDto = BookListRespDto.builder().bookList(dtos).build();
+
+        return bookListRespDto;
         //        return bookRepository.findAll().stream().map(BookRespDto::toDto).collect(Collectors.toList()); // 복제된 bookPS들을 Stream에 담아 List로 변환하여 반환
 
         //toDto가 static 메소드가 아닌 경우
