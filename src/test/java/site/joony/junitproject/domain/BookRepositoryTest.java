@@ -3,12 +3,14 @@ package site.joony.junitproject.domain;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
+@ActiveProfiles("dev") // 개발모드일때(application_dev.yml) 작동해라
 @DataJpaTest // DB와 관련된 컴포넌트만 메모리에 로딩 (단위 테스트)
 public class BookRepositoryTest {
     //통합 테스트 실행할 경우 메서드들은 순차적으로 실행되지 않는다. --> 순서 보장을 하고 싶다면 Order어

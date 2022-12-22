@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 import site.joony.junitproject.domain.Book;
 import site.joony.junitproject.domain.BookRepository;
 import site.joony.junitproject.util.MailSender;
@@ -21,6 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 //@DataJpaTest
+@ActiveProfiles("dev") // 개발모드일때(application_dev.yml) 작동해라
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
 
